@@ -42,8 +42,16 @@ def get_annual_max(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary.
         You'll have to change vals to int to compare them. 
     '''
-    pass
-
+    ans = []
+    for year in d:
+        maxval = int(d[year]['JAN'])
+        month_val = 'JAN'
+        for month in d[year]:
+            if maxval < int(d[year][month]):
+                maxval = int(d[year][month])
+                month_val = month
+        ans.append((year, month_val, maxval))
+    return ans
 def get_month_avg(d):
     '''
     Params: 
@@ -66,7 +74,7 @@ class dis7_test(unittest.TestCase):
         self.flight_dict = load_csv('daily_visitors.csv')
         self.max_tup_list = get_annual_max(self.flight_dict)
         self.month_avg_dict = get_month_avg(self.flight_dict)
-
+        print(self.max_tup_list)
     def test_load_csv(self):
         self.assertIsInstance(self.flight_dict['2021'], dict)
         self.assertEqual(self.flight_dict['2020']['JUN'], '435')
