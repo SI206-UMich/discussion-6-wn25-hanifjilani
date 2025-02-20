@@ -1,6 +1,6 @@
 import unittest
 import os
-
+import csv
 
 def load_csv(f):
     '''
@@ -18,7 +18,18 @@ def load_csv(f):
     base_path = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(base_path, f)
     # use this 'full_path' variable as the file that you open
-
+    out_d = {}
+    with open(full_path, 'r') as file:
+        csvread = csv.reader(file)
+        headers = next(csvread)
+        out_d['2020'] = {}
+        out_d['2021'] = {}
+        out_d['2022'] = {}
+        for i in csvread:
+            out_d['2020'][i[0]] = i[1]
+            out_d['2021'][i[0]] = i[2]
+            out_d['2022'][i[0]] = i[3]
+    return out_d
 def get_annual_max(d):
     '''
     Params:
