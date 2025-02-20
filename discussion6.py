@@ -64,7 +64,17 @@ def get_month_avg(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary. 
         You'll have to make the vals int or float here and round the avg to pass tests.
     '''
-    pass
+    out_d = {}
+    for year in d:
+        total = 0.0
+        count = 0
+        for month in d[year]:
+            total += float(d[year][month])
+            count += 1
+        total = total/count
+        total = round(total)
+        out_d[year] = total
+    return out_d
 
 class dis7_test(unittest.TestCase):
     '''
